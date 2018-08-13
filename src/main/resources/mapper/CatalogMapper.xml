@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learn.dao.CatalogMapper">
+  <resultMap id="BaseResultMap" type="com.learn.bean.Catalog">
+    <id column="catalog_id" jdbcType="INTEGER" property="catalogId" />
+    <result column="module_id" jdbcType="INTEGER" property="moduleId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="video" jdbcType="VARCHAR" property="video" />
+    <result column="create_id" jdbcType="INTEGER" property="createId" />
+    <result column="update_id" jdbcType="INTEGER" property="updateId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    catalog_id, module_id, title, weight, description, video, create_id, update_id, create_time, 
+    update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.learn.bean.CatalogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_catalog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_catalog
+    where catalog_id = #{catalogId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_catalog
+    where catalog_id = #{catalogId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.learn.bean.CatalogExample">
+    delete from t_catalog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.learn.bean.Catalog">
+    insert into t_catalog (catalog_id, module_id, title, 
+      weight, description, video, 
+      create_id, update_id, create_time, 
+      update_time)
+    values (#{catalogId,jdbcType=INTEGER}, #{moduleId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{weight,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{video,jdbcType=VARCHAR}, 
+      #{createId,jdbcType=INTEGER}, #{updateId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.learn.bean.Catalog">
+    insert into t_catalog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="catalogId != null">
+        catalog_id,
+      </if>
+      <if test="moduleId != null">
+        module_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="video != null">
+        video,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="updateId != null">
+        update_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="catalogId != null">
+        #{catalogId,jdbcType=INTEGER},
+      </if>
+      <if test="moduleId != null">
+        #{moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null">
+        #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null">
+        #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.learn.bean.CatalogExample" resultType="java.lang.Long">
+    select count(*) from t_catalog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_catalog
+    <set>
+      <if test="record.catalogId != null">
+        catalog_id = #{record.catalogId,jdbcType=INTEGER},
+      </if>
+      <if test="record.moduleId != null">
+        module_id = #{record.moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.video != null">
+        video = #{record.video,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createId != null">
+        create_id = #{record.createId,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateId != null">
+        update_id = #{record.updateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_catalog
+    set catalog_id = #{record.catalogId,jdbcType=INTEGER},
+      module_id = #{record.moduleId,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      video = #{record.video,jdbcType=VARCHAR},
+      create_id = #{record.createId,jdbcType=INTEGER},
+      update_id = #{record.updateId,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.learn.bean.Catalog">
+    update t_catalog
+    <set>
+      <if test="moduleId != null">
+        module_id = #{moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null">
+        video = #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null">
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where catalog_id = #{catalogId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.learn.bean.Catalog">
+    update t_catalog
+    set module_id = #{moduleId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      video = #{video,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=INTEGER},
+      update_id = #{updateId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where catalog_id = #{catalogId,jdbcType=INTEGER}
+  </update>
+
+  <select id="catalogList"  resultType="com.learn.pojo.CatalogListVO">
+   select a.catalog_id catalogId,a.title catalogTitle,a.description catalogDescription,a.video catalogVideo,a.create_time catalogCreateTime,a.weight catalogWeight
+			,b.module_id moduleId,b.name moduleName,c.stage_id stageId,c.name stageName,d.course_id courseId,d.name courseName
+	from t_catalog a LEFT JOIN t_module b on a.module_id=b.module_id
+	LEFT JOIN t_stage c on b.stage_id=c.stage_id
+ LEFT JOIN t_course d on c.course_id=d.course_id
+    <where>
+      <if test="courseId!=null and courseId!=-1">
+        and d.course_id=#{courseId}
+      </if>
+      <if test="stageId!=null and stageId!=-1">
+        and c.stage_id=#{stageId}
+      </if>
+      <if test="moduleId!=null and moduleId!=-1">
+        and b.module_id=#{moduleId}
+      </if>
+    </where>
+ order by d.weight desc,c.weight desc,b.weight desc,d.weight
+
+  </select>
+</mapper>
