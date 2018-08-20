@@ -16,7 +16,7 @@ public class TestWeb {
 
     @Test
     public void testRabbitMq(){
-        System.out.println("发送第"+i+"消息");
+        //System.out.println("发送第"+i+"消息");
         //DigestUtils.md5Hex(user.getPassword())
 //        try {
 //            consumerHandlerService.consume();
