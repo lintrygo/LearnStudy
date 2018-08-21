@@ -75,7 +75,7 @@
                             </table>
                         </div>
                         <div style="margin-top: 40px">
-                            ${catalog.description}
+                            ${(catalog.description)!}
                         </div>
                         <div class="row">
                             <div class="col-md-8 col-sm-offset-2 text-center">
